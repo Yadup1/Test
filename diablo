@@ -132,7 +132,7 @@ decklist = {
 	'Big Diablo': 4,
 	'Inkable Action': 18,
 	'Uninkable Action': 0,
-	'Inkable Other': 22,
+	'Inkable Other': 15,
 	'Uninkable Other': 3
 }
 
