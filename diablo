@@ -11,11 +11,11 @@ def choose_ink_and_adjust_hand(hand, turn):
 	if hand['Inkable Action'] >= 2:
 		hand['Inkable Action'] -= 1
 		return True
-	if hand['Two-drop'] >= 1:
-		hand['Two-drop'] -= 1
+	if hand['Two drop'] >= 1:
+		hand['Two drop'] -= 1
 		return True
-	if hand['one-drop'] >= 1:
-		hand['one-drop'] -= 1
+	if hand['one drop'] >= 1:
+		hand['one drop'] -= 1
 		return True
 	if hand['Small Diablo'] >= 2 and turn == 1:
 		hand['Small Diablo'] -= 1
@@ -41,8 +41,8 @@ def run_one_sim(play_or_draw):
     #Construct a random opening hand
     hand = {
 		'Small Diablo': 0,
-		'one-drop': 0,
-		'Two-drop': 0,
+		'one drop': 0,
+		'Two drop': 0,
 		'Big Diablo': 0,
 		'Inkable Action': 0,
 		'Uninkable Action': 0,
@@ -61,9 +61,9 @@ def run_one_sim(play_or_draw):
 	#1. We keep one Small Diablo if possible and, unless we already have the character nuts, mulligan excess copies.
     SmallDiablo_on_bottom = 0 if hand['Small Diablo'] == 0 else (hand['Small Diablo'] - 1 if not WeGotItAll else 0)
 	#2. If there was no Small Diablo, we try to secure a one-drop by keeping one if possible
-    one-drop_on_bottom = hand['one-drop'] if hand['Small Diablo'] >= 1 else max(0, hand['one-drop'] - 1)
+    onedrop_on_bottom = hand['one drop'] if hand['Small Diablo'] >= 1 else max(0, hand['one drop'] - 1)
 	#3. We keep one Two-drop if possible and, unless we already have the character nuts, mulligan excess copies
-    Two-drop_on_bottom = 0 if hand['Two-drop'] == 0 else (hand['Two-drop'] - 1 if not WeGotItAll else 0)
+    Twodrop_on_bottom = 0 if hand['Two drop'] == 0 else (hand['Two drop'] - 1 if not WeGotItAll else 0)
 	#5. We keep one Big Diablo if possible and mulligan excess copies.
     BigDiablo_on_bottom = 0 if hand['Big Diablo'] == 0 else hand['Big Diablo'] - 1
 	#6. If we already have all characters for the nuts, we keep an action and two ink if possible. Otherwise, we mulligan them all in search of characters.
@@ -72,19 +72,19 @@ def run_one_sim(play_or_draw):
     InkableOther_on_bottom = hand['Inkable Other'] if not WeGotItAll else 0
     UninkableOther_on_bottom = hand['Uninkable Other']
     hand['Small Diablo'] -= SmallDiablo_on_bottom
-    hand['one-drop'] -= one-drop_on_bottom
-    hand['Two-drop'] -= Two-Drop_on_bottom
+    hand['one drop'] -= onedrop_on_bottom
+    hand['Two drop'] -= TwoDrop_on_bottom
     hand['Big Diablo'] -= BigDiablo_on_bottom
     hand['Inkable Action'] -= InkableAction_on_bottom
     hand['Uninkable Action'] -= UninkableAction_on_bottom
     hand['Inkable Other'] -= InkableOther_on_bottom
     hand['Uninkable Other'] -= UninkableOther_on_bottom
 
-    library += ['Small Diablo'] * SmallDiablo_on_bottom + ['one-drop'] * one-drop_on_bottom + ['Two-drop'] * Two-Drop_on_bottom
+    library += ['Small Diablo'] * SmallDiablo_on_bottom + ['one drop'] * onedrop_on_bottom + ['Two drop'] * TwoDrop_on_bottom
     library += ['Big Diablo'] * BigDiablo_on_bottom + ['Inkable Action'] * InkableAction_on_bottom + ['Uninkable Action'] * UninkableAction_on_bottom
     library += ['Inkable Other'] * InkableOther_on_bottom + ['Uninkable Other'] * UninkableOther_on_bottom 
 	
-    nr_cards_adjusted = SmallDiablo_on_bottom + one-drop_on_bottom + Two-Drop_on_bottom + BigDiablo_on_bottom + InkableAction_on_bottom + UninkableAction_on_bottom + InkableOther_on_bottom + UninkableOther_on_bottom
+    nr_cards_adjusted = SmallDiablo_on_bottom + onedrop_on_bottom + TwoDrop_on_bottom + BigDiablo_on_bottom + InkableAction_on_bottom + UninkableAction_on_bottom + InkableOther_on_bottom + UninkableOther_on_bottom
     for _ in range(nr_cards_adjusted):
         card_drawn = library.pop(0)
         hand[card_drawn] += 1
@@ -115,8 +115,8 @@ num_simulations = 5000000
 
 decklist = {
 	'Small Diablo': 8,
-	'one-drop': 2,
-	'Two-drop': 8,
+	'one drop': 2,
+	'Two drop': 8,
 	'Big Diablo': 4,
 	'Inkable Action': 18,
 	'Uninkable Action': 0,
